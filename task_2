@@ -1,0 +1,36 @@
+# вузол bst
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+# вставка в bst
+def insert(root, key):
+    # якщо дерева немає створюємо корінь
+    if root is None:
+        return Node(key)
+    # правило bst
+    if key < root.key:
+        root.left = insert(root.left, key)
+    else:
+        root.right = insert(root.right, key)
+    return root
+
+# сума всіх значень у дереві рекурсивно
+def sum_tree(root):
+    # порожнє піддерево дає нуль
+    if root is None:
+        return 0
+    # сума лівого плюс значення вузла плюс сума правого
+    return sum_tree(root.left) + root.key + sum_tree(root.right)
+
+# приклад використання
+if __name__ == "__main__":
+    values = [7, 3, 9, 1, 5, 8, 10]
+    root = None
+    for v in values:
+        root = insert(root, v)
+
+    total = sum_tree(root)
+    print(f"сума всіх значень у дереві {total}")
