@@ -1,0 +1,40 @@
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+# вставка в bst
+def insert(root, key):
+    # якщо дерева немає - створюємо корінь
+    if root is None:
+        return Node(key)
+    # йдемо вліво або вправо за правилом bst
+    if key < root.key:
+        root.left = insert(root.left, key)
+    else:
+        root.right = insert(root.right, key)
+    return root
+
+# пошук мінімального значення в bst - ітеративно
+def find_min(root):
+    # якщо дерево порожнє - повертаємо none
+    if root is None:
+        return None
+    # найменше значення - у найлівшому вузлі
+    current = root
+    while current.left is not None:
+        current = current.left
+    return current.key
+
+# приклад використання
+if __name__ == "__main__":
+    # будуємо дерево
+    values = [7, 3, 9, 1, 5, 8, 10]
+    root = None
+    for v in values:
+        root = insert(root, v)
+
+    # знаходимо мінімум
+    m = find_min(root)
+    print(f"мінімальне значення у дереві {m}")
